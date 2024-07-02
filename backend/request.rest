@@ -1,0 +1,81 @@
+POST http://localhost:5000/users/
+Content-Type: application/json
+
+{
+    "corporateAccountNo":"12345",
+    "corporateName":"Cabang 1",
+    "userId":"approver-antony",
+    "userName":"Antony Doe",
+    "role":"approver",
+    "phoneNo":"+6282392853535",
+    "email":"antony@c1.com",
+    "password":"strong_password"
+}
+
+###
+// Get All Users
+GET http://localhost:5000/users
+
+
+###
+// Get User
+GET http://localhost:5000/users/8c94f863-8ea7-4f9c-a93c-8330b7d1361e
+
+###
+// Login
+POST http://localhost:5000/login/
+Content-Type: application/json
+
+{
+    "corporateAccountNo":"12345",
+    "userId":"maker-miller",
+    "password":"strong_password"
+}
+
+###
+// Me
+GET http://localhost:5000/me
+
+###
+DELETE http://localhost:5000/logout
+
+
+###
+// Create Transaction
+POST http://localhost:5000/transactions/
+Content-Type: application/json
+
+{
+    "instructionType": 1,
+    "transferRecord": 1,
+    "transferAmount": 10000000,
+    "transferType": 1,
+    "transferDate": "2024-06-30",
+    "transactionDetails" : [
+        {
+        "toAccountNo":"1233454",
+        "toAccountName":"Joyo Wijoyo",
+        "toBankName":"BNC",
+        "transferAmount":10000000
+        },
+        {
+            "toAccountNo":"1233454",
+            "toAccountName":"Joyo Wijoyo",
+            "toBankName":"BNC",
+            "transferAmount":10000000
+        }
+    ]
+}
+
+###
+// Get All Transactions
+GET http://localhost:5000/transactions
+
+
+###
+// Get Transaction Detail
+GET http://localhost:5000/transactions/7dd71fcd-4fc5-4eef-8dcd-5d8762be6bd4
+
+###
+// Get Transaction Detail
+GET http://localhost:5000/transactions/overview

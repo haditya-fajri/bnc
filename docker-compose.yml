@@ -1,0 +1,47 @@
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: strong_password
+      MYSQL_DATABASE: bnc_db
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend # path to your Express backend code
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - app-network
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: strong_password
+      DB_NAME: bnc_db
+      DB_PORT: 3306
+    stdin_open: true
+    tty: true
+
+  frontend:
+    build:
+      context: ./frontend # path to your React frontend code
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
